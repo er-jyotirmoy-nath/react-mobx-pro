@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-import {fetchtmv3All,addtoFilterTmv3,removetoFilterTmv3,applyFilterTmv3} from '../actions/tmv3actions';
+import {fetchtmv3All,addtoFilterTmv3,removetoFilterTmv3,applyFilterTmv3,clearFilterTmv3} from '../actions/tmv3actions';
 import Viewdetails from './viewDetails';
 
 class Tmv3 extends Component {
@@ -25,12 +25,24 @@ class Tmv3 extends Component {
     }
     useFilter(){
 
-      this.props.applyFilter(this.props.tmv3Filter)
+      if(this.props.tmv3Filter.length>0){
+        this.props.applyFilter(this.props.tmv3Filter);
+      }
+      else{
+        this.props.clearfilter();
+      }
 
     }
     render() {
-      let tmv3listings = (this.props.tmv3[0])?this.props.tmv3[0]:[];
+      let tmv3listings =[];
+      if (this.props.tmv3.tmv3filtered) {
+        tmv3listings = (this.props.tmv3.tmv3filtered)?this.props.tmv3.tmv3filtered:[];
+      }
+       else{
+         tmv3listings = (this.props.tmv3.tmv3files)?this.props.tmv3.tmv3files:[];
+       }
       //console.log(toJS(tmv3listings));
+
       function bdataFormater(cell, row){
         return <Viewdetails id={cell} type='tmv3' />
       }
@@ -121,6 +133,11 @@ function mapDispatchToProps(dispatch) {
           applyFilter(f){
             dispatch(
               applyFilterTmv3(f)
+            )
+          },
+          clearfilter(){
+            dispatch(
+              clearFilterTmv3()
             )
           },
           gettmv3All(){

@@ -39,8 +39,15 @@ export const removetoFilterTmv3 = (f)=>{
 }
 
 export const applyFilterTmv3 = (f)=>{
+
   return {
     type:"APPLY_TMV3_FILTER",
     payload:f
+  }
+}
+
+export const clearFilterTmv3=()=>{
+  return {
+    type:"CLEAR_TMV3_FILTER"
   }
 }
