@@ -1,17 +1,17 @@
 import React,{Component} from 'react';
-import {observer,Provider,inject} from  'mobx-react';
-import Listingstore from '../store/Listingstore';
+import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import {fetchtmv2All,fetchtmv2Details} from '../actions/actioncreators';
 import Viewdetails from './viewDetails';
-inject('Listingstore');
-@observer
-export default class Tmv2 extends Component {
+
+class Tmv2 extends Component {
     componentDidMount() {
-      Listingstore.getTmv2();
+      this.props.fetchTMV2();
     }
     render() {
-      let tmv2listings = Listingstore.tmv2;
+      console.log(this.props.tmv2);
+      let tmv2listings = this.props.tmv2[0];
       function bdataFormater(cell, row){
         return <Viewdetails id={cell} type='tmv2' />
       }
@@ -73,7 +73,7 @@ export default class Tmv2 extends Component {
                                                 <TableHeaderColumn dataField="MANUFACTURER"  isKey={true}  dataSort={true}>Approval Holder</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="NEW_COMM"  dataSort={true}>Mixing Valve</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="UNIQUE_ID"  dataSort={true} >Unique ID</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="CERT_ID"  dataSort={true} >Certificate</TableHeaderColumn>                                              
+                                                <TableHeaderColumn dataField="CERT_ID"  dataSort={true} >Certificate</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="BUILD_APP_ID"   dataSort={true} dataFormat={bdataFormater} >View Listing</TableHeaderColumn>
                               </BootstrapTable>
 
@@ -87,3 +87,19 @@ export default class Tmv2 extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+  return{
+    tmv2:state.tmv2all.tmv2
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchTMV2(){
+      dispatch(
+        fetchtmv2All()
+      )
+    }
+  }
+}
+ export default connect(mapStateToProps,mapDispatchToProps)(Tmv2);

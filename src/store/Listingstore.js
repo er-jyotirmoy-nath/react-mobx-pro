@@ -144,6 +144,7 @@ class Listingstore {
 	@observable filterc=[];
   @observable username='';
   @observable password='';
+  @observable checkcertificate='';
 	@computed get filterTmv3 (){
 
 		return this.tmv3.filter((item2) => {
@@ -293,6 +294,32 @@ class Listingstore {
         }).catch((err) => {
           console.log(err);
         });
+  }
+  @action checkCertificate(certificate){
+    let params = new URLSearchParams();
+    params.append('certificate_number',certificate);
+    params.append('check_certificate','get');
+    axios.post('https://wrcnsf.com/listings/php/listingsManage.php',params)
+          .then((value) => {
+            this.checkcertificate = value.data;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
+  }
+
+  @action uploadImage(name){
+    let data = new FormData();
+    data.append('file', document);
+    data.append('image', name);
+    axios.post('https://wrcnsf.com/listings/php/listingsManage.php',data)
+        .then((value) => {
+          console.log(value.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
   }
 }
 

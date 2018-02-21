@@ -65,6 +65,16 @@ export default class Tmv2admin extends Component {
       };
       Listingstore.saveTmv2(send_data);
     }
+    checkCertificate(e){
+      if (e.target.value.trim().length >= 4) {
+        Listingstore.checkCertificate(e.target.value.trim());
+      }
+    }
+    uploadImage(e){
+      if (e.target.files.length>0) {
+        Listingstore.uploadImage(e.target.files[0]);
+      }
+    }
     render() {
         return (
             <div className="class-name">
@@ -92,7 +102,9 @@ export default class Tmv2admin extends Component {
                                 <td><b>Unique Valve ID</b></td><td><input ref="Unique_ID" type="text" className="textbox"  size="30" /></td>
                             </tr>
                             <tr>
-                                <td><b>Certificate Numbers</b></td>	<td><input ref="certnumber" type="number" className="textbox" placeholder="certificate number" size="10" /></td>
+                                <td><b>Certificate Numbers</b></td>
+                                <td><input ref="certnumber" type="number" className="textbox" placeholder="certificate number" size="10" onKeyUp={this.checkCertificate.bind(this)} />
+                                <br/>{<span>{Listingstore.checkcertificate}</span>}</td>
                                 <td>/</td><td> <input ref="certdate" type="number" className="textbox" placeholder="certificate date" size="10" /> </td>
                             </tr>
                             <tr>
@@ -158,7 +170,7 @@ export default class Tmv2admin extends Component {
                               <td><b>Cold Isol 46</b> <input ref="Cold_isol_46_lp" type="checkbox" value="1" /></td><td></td>
                             </tr>
                             <tr>
-                              <td>Image</td><td ><input type="file" id="img_file" />
+                              <td>Image</td><td ><input type="file" id="img_file" ref='img_file' onChange={this.uploadImage.bind(this)} />
                               <br/>
 
                               </td>

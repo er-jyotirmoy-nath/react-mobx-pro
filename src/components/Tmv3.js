@@ -1,102 +1,35 @@
 import React,{Component} from 'react';
-import {toJS} from 'mobx';
-import {observer,Provider,inject} from  'mobx-react';
-import Listingstore from '../store/Listingstore';
+import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+
+import {fetchtmv3All,addtoFilterTmv3,removetoFilterTmv3,applyFilterTmv3} from '../actions/tmv3actions';
 import Viewdetails from './viewDetails';
 
-inject('Listingstore');
-@observer
-export default class Tmv3 extends Component {
+class Tmv3 extends Component {
     constructor(props){
     	super(props);
     	this.state = {};
     }
-    componentWillMount() {
-      Listingstore.getTmv3();
+    componentDidMount() {
+      this.props.gettmv3All();
     }
-    setFilter(){
-      if (this.refs.HPB.checked) {
-          if(!Listingstore.filterc.includes('HPB')){Listingstore.filterc.push('HPB');}
-      }else{
-          if(Listingstore.filterc.includes('HPB')){  Listingstore.deleteFilter('HPB');}
+    changeFilter(e){
+      let filtername = e.target.name;
+      if (e.target.checked) {
+        this.props.addFilter(filtername);
       }
-      if (this.refs.HPS.checked) {
-          if(!Listingstore.filterc.includes('HPS')){Listingstore.filterc.push('HPS');}
-      }else{
-          if(Listingstore.filterc.includes('HPS')){  Listingstore.deleteFilter('HPS');}
+      else{
+        this.props.removeFilter(filtername);
       }
-      if (this.refs.HPW.checked) {
-          if(!Listingstore.filterc.includes('HPW')){Listingstore.filterc.push('HPW');}
-      }else{
-          if(Listingstore.filterc.includes('HPW')){  Listingstore.deleteFilter('HPW');}
-      }
-      if (this.refs.HPT44.checked) {
-          if(!Listingstore.filterc.includes('HPT44')){Listingstore.filterc.push('HPT44');}
-      }else{
-          if(Listingstore.filterc.includes('HPT44')){  Listingstore.deleteFilter('HPT44');}
-      }
-      if (this.refs.HPT46.checked) {
-          if(!Listingstore.filterc.includes('HPT46')){Listingstore.filterc.push('HPT46');}
-      }else{
-          if(Listingstore.filterc.includes('HPT46')){  Listingstore.deleteFilter('HPT46');}
-      }
-      if (this.refs.HPD44.checked) {
-          if(!Listingstore.filterc.includes('HPD44')){Listingstore.filterc.push('HPD44');}
-      }else{
-          if(Listingstore.filterc.includes('HPD44')){  Listingstore.deleteFilter('HPD44');}
-      }
-      if (this.refs.HPD46.checked) {
-          if(!Listingstore.filterc.includes('HPD46')){Listingstore.filterc.push('HPD46');}
-      }else{
-          if(Listingstore.filterc.includes('HPD46')){  Listingstore.deleteFilter('HPD46');}
-      }
-      if (this.refs.LPB.checked) {
-          if(!Listingstore.filterc.includes('LPB')){Listingstore.filterc.push('LPB');}
-      }else{
-          if(Listingstore.filterc.includes('LPB')){  Listingstore.deleteFilter('LPB');}
-      }
-      if (this.refs.LPS.checked) {
-          if(!Listingstore.filterc.includes('LPS')){Listingstore.filterc.push('LPS');}
-      }else{
-          if(Listingstore.filterc.includes('LPS')){  Listingstore.deleteFilter('LPS');}
-      }
-      if (this.refs.LPW.checked) {
-        if(!Listingstore.filterc.includes('LPW')){Listingstore.filterc.push('LPW');}
-      }else{
-          if(Listingstore.filterc.includes('LPW')){  Listingstore.deleteFilter('LPW');}
-      }
-      if (this.refs.LPT44.checked) {
-        if(!Listingstore.filterc.includes('LPT44')){Listingstore.filterc.push('LPT44');}
-      }else{
-          if(Listingstore.filterc.includes('LPT44')){  Listingstore.deleteFilter('LPT44');}
-      }
-      if (this.refs.LPT46.checked) {
-        if(!Listingstore.filterc.includes('LPT46')){Listingstore.filterc.push('LPT46');}
-      }else{
-          if(Listingstore.filterc.includes('LPT46')){  Listingstore.deleteFilter('LPT46');}
-      }
-      if (this.refs.LPD44.checked) {
-        if(!Listingstore.filterc.includes('LPD44')){Listingstore.filterc.push('LPD44');}
-      }else{
-          if(Listingstore.filterc.includes('LPD44')){  Listingstore.deleteFilter('LPD44');}
-      }
-      if (this.refs.LPD46.checked) {
-        if(!Listingstore.filterc.includes('LPD46')){Listingstore.filterc.push('LPD46');}
-      }else{
-          if(Listingstore.filterc.includes('LPD46')){  Listingstore.deleteFilter('LPD46');}
-      }
-      if (this.refs.discon.checked) {
-        if(!Listingstore.filterc.includes('discon')){Listingstore.filterc.push('discon');}
-      }else{
-        if(Listingstore.filterc.includes('discon')){    Listingstore.deleteFilter('discon');}
-      }
+    }
+    useFilter(){
 
+      this.props.applyFilter(this.props.tmv3Filter)
 
     }
     render() {
-      let tmv3listings = Listingstore.filterTmv3_2;
+      let tmv3listings = (this.props.tmv3[0])?this.props.tmv3[0]:[];
       //console.log(toJS(tmv3listings));
       function bdataFormater(cell, row){
         return <Viewdetails id={cell} type='tmv3' />
@@ -111,39 +44,39 @@ export default class Tmv3 extends Component {
 
                                <div className="col-md-4">
                                    <h4>High Pressure 1.0 - 5.0 bar dynamic (HP)</h4>
-                                       <label><input ref="HPB" type="checkbox" value="1" /> B</label>
-                                       <label><input ref="HPS" type="checkbox" value="1" /> S</label>
-                                       <label><input ref="HPW" type="checkbox" value="1"/> W</label>
-                                       <label><input ref="HPT44" type="checkbox" value="1" /> T44</label>
-                                       <label><input ref="HPT46" type="checkbox" value="1" /> T46</label>
-                                       <label><input ref="HPD44" type="checkbox" value="1" /> D44</label>
-                                       <label><input ref="HPD46" type="checkbox" value="1" /> D46</label>
+                                       <label><input name="HPB" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> B</label>
+                                       <label><input name="HPS" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> S</label>
+                                       <label><input name="HPW" type="checkbox" value="1" onChange={this.changeFilter.bind(this)}/> W</label>
+                                       <label><input name="HPT44" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> T44</label>
+                                       <label><input name="HPT46" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> T46</label>
+                                       <label><input name="HPD44" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> D44</label>
+                                       <label><input name="HPD46" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} /> D46</label>
                                </div><div className="col-md-4"><h4>Low Pressure 0.2 - 1.0 bar dynamic (LP) </h4>
-                                   <label><input ref="LPB" type="checkbox" value="1"/> B</label>
+                             <label><input name="LPB" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)}/> B</label>
 
-                                     <label><input ref="LPS" type="checkbox" value="1" /> S</label>
-                                     <label><input ref="LPW" type="checkbox" value="1"/> W</label>
-                                     <label><input ref="LPT44" type="checkbox" value="1" /> T44</label>
-                                     <label><input ref="LPT46" type="checkbox" value="1" /> T46</label>
-                                     <label><input ref="LPD44" type="checkbox" value="1" /> D44</label>
-                                     <label><input ref="LPD46" type="checkbox" value="1" /> D46</label>
+                                     <label><input name="LPS" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)} /> S</label>
+                                     <label><input name="LPW" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)}/> W</label>
+                                     <label><input name="LPT44" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)} /> T44</label>
+                                     <label><input name="LPT46" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)} /> T46</label>
+                                     <label><input name="LPD44" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)} /> D44</label>
+                                     <label><input name="LPD46" type="checkbox" value="1" onChange={this.changeFilter.bind(this)} onChange={this.changeFilter.bind(this)} /> D46</label>
                                </div>
                                <div className="col-md-4">
                                    <div className="row">
                                      <div className="col-md-6">
                                            <input type="hidden" name="filter" value="yes"/>
-                                          <label><input ref="discon" type="checkbox" value="1"/>
+                                          <label><input name="discon" type="checkbox" value="1" onChange={this.changeFilter.bind(this)}/>
                                                    Discontinued Approvals</label>
                                       </div>
                                      <div className="col-md-6">
-                                           <button type="button" onClick={this.setFilter.bind(this)} className="btn btn-default"><i className="fa fa-search" aria-hidden="true"></i> Show Approvals</button>
+                                           <button type="button" onClick={this.useFilter.bind(this)} className="btn btn-default"><i className="fa fa-search" aria-hidden="true"></i> Show Approvals</button>
                                        </div>
                                      </div>
                                </div>
                    </div>
                            <div className="row"><div className="col-md-12">
                                    <br/>
-                                   <h5>Total Records:{Listingstore.tmv3Count}</h5>
+                                   <h5>Total Records:{tmv3listings.length}</h5>
                                    <div className="panel panel-default" style={{"borderColor": "#2196f3"}}>
                                        <div className="panel-heading2" style={{"backgroundColor": "#2196f3 !important","borderColor": "#2196f3"}}>
                                            Check TMV3 Approval
@@ -167,3 +100,34 @@ export default class Tmv3 extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+  return{
+    tmv3:state.tmv3all.tmv3,
+    tmv3Filter:state.tmv3all.tmv3Filter
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+          addFilter(f){
+            dispatch(
+            addtoFilterTmv3(f)
+            )
+          },
+          removeFilter(f){
+            dispatch(
+            removetoFilterTmv3(f)
+            )
+          },
+          applyFilter(f){
+            dispatch(
+              applyFilterTmv3(f)
+            )
+          },
+          gettmv3All(){
+            dispatch(
+              fetchtmv3All()
+            )
+          }
+  }
+}
+ export default connect(mapStateToProps, mapDispatchToProps)(Tmv3)
