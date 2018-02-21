@@ -8,6 +8,9 @@ export const ciasfiles = (state=[],action)=>{
       action.payload
     ];
   }
+  else {
+    return state;
+  }
 }
 
 export const ciasfile = (state={},action)=>{
