@@ -3,7 +3,8 @@ import {combineReducers} from 'redux';
 
 import {tmv3,tmv3file,tmv3Filter} from './tmv3Reducer';
 import {ciasfiles,ciasfile} from './ciasReducer';
-
+import {pdcertall,pdcertfile} from './pdcertreducer';
+import {dtcfiles,dtcfile} from './dtcreducer';
 
 export const tmv2 = (state=[],action)=>{
   switch (action.type) {
@@ -27,25 +28,36 @@ export const tmv2file = (state={},action)=>{
 }
 
 
-export const dtcfile = (state={},action)=>{
-  if (action.type==C.FETCH_DTC_DETAIL) {
-    return action.payload;
-  }
-  else {
+
+
+export const error = (state=[],action)=>{
+  switch (action.type) {
+    case C.ADD_ERROR:
+      return [
+        ...state,
+        action.payload
+      ]
+      break;
+    case C.CLEAR_ERROR:
+      return [];
+      break;
+    default:
     return state;
+
   }
 }
 
-export const pdcertfile = (state={},action)=>{
-  if (action.type==C.FETCH_PDCERT_DETAIL) {
-    return action.payload;
-  }
-  else {
+export const savestatus = (state='',action)=>{
+  switch (action.type) {
+    case C.ADD_SAVE_STATUS:
+      return action.payload;
+      break;
+
+    default:
     return state;
+
   }
 }
-
-
 
 export default combineReducers({
   tmv2all:combineReducers({
@@ -62,9 +74,13 @@ export default combineReducers({
     ciasfile
   }),
   dtcall:combineReducers({
+    dtcfiles,
     dtcfile
   }),
   pdcertall:combineReducers({
+    pdcertall,
     pdcertfile
-  })
+  }),
+  error,
+  savestatus,
 })

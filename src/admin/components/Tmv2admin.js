@@ -2,12 +2,13 @@ import React,{Component} from 'react';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl,Modal} from 'react-bootstrap';
 import Listingstore from '../../store/Listingstore';
 import {observer,inject} from  'mobx-react';
+import axios from 'axios';
 inject('Listingstore')
 @observer
 export default class Tmv2admin extends Component {
     constructor(props){
     	super(props);
-      this.state = { showModal: false, listingDetail:'' };
+      this.state = { showModal: false, listingDetail:'',imageUrl:'',uploadStat:''};
       this.close = this.close.bind(this);
       this.open = this.open.bind(this);
     }
@@ -71,8 +72,22 @@ export default class Tmv2admin extends Component {
       }
     }
     uploadImage(e){
+      let self = this;self.setState({'uploadStat':'uploading...'});
       if (e.target.files.length>0) {
-        Listingstore.uploadImage(e.target.files[0]);
+        console.log(e.target.files[0]);
+        const form = new FormData();
+        form.append('file',e.target.files[0]);
+        //http://localhost:3000/api/imageUploads/firstfile/upload
+        axios.post('http://localhost:3000/api/imageUploads/newfile/upload',form)
+          .then((value) => {
+            console.log(value.data);
+
+            self.setState({'uploadStat':'Done',imageUrl:'http://localhost:3000/api/imageUploads/newfile/download/'+value.data.result.files.file[0].name});
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+
       }
     }
     render() {
@@ -171,10 +186,13 @@ export default class Tmv2admin extends Component {
                             </tr>
                             <tr>
                               <td>Image</td><td ><input type="file" id="img_file" ref='img_file' onChange={this.uploadImage.bind(this)} />
+                              <br/>{this.state.uploadStat}
                               <br/>
 
                               </td>
-                              <td>Url</td><td><input type="text" className="textbox" id="url_app"  size="30" /></td>
+                              <td>Url</td><td><input type="text" className="textbox" id="url_app"  size="30" value={this.state.imageUrl} />
+                              <img src={this.state.imageUrl} style={{'width':'45%'}} />
+                            </td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,21 +1,19 @@
 import React,{Component} from 'react';
-import {observer,Provider,inject} from  'mobx-react';
-import Listingstore from '../store/Listingstore';
+import {connect} from 'react-redux';
 import { Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import Viewdetails from './viewDetails';
-inject('Listingstore');
-@observer
-export default class Dtc extends Component {
+import {fetchDtcAll} from '../actions/dtcactions';
+class Dtc extends Component {
     constructor(props){
     	super(props);
     	this.state = {};
     }
     componentWillMount() {
-      Listingstore.getDtcDetails();
+      this.props.fetchDtcAll();
     }
     render() {
-      let dtcFiles = Listingstore.dtc;
+      let dtcFiles = (this.props.dtcfiles)?this.props.dtcfiles[0]:[];
       function bdataFormater(cell,row){
         return <Viewdetails id={cell} type='dtc' />;
       }
@@ -52,3 +50,21 @@ export default class Dtc extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+  return{
+    dtcfiles:state.dtcall.dtcfiles
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchDtcAll(){
+      dispatch(
+        fetchDtcAll()
+      )
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dtc);

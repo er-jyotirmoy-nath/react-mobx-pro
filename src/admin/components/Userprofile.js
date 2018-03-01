@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Listingstore from '../../store/Listingstore';
 import {observer,inject} from  'mobx-react';
 import Tmv2admin from './Tmv2admin';
+import Ciasadmin from './Ciasadmin';
 inject('Listingstore')
 @observer
 export default class Userprofile extends Component {
@@ -29,7 +30,7 @@ export default class Userprofile extends Component {
                                           <Tmv2admin />
                                       </div>
                                       <div className='col-lg-3'>
-
+                                          <Ciasadmin />
                                       </div>
                                       <div className='col-lg-3'>
 

@@ -13,7 +13,6 @@ import Login from './components/Login';
 import Admin from './components/Admin';
 const   Routing = ()=>{
     return (
-      <Provider Listingstore={Listingstore}>
           <Router history={hashHistory}>
           <Route path={'/'} component={App}>
               <IndexRoute component={Home} />
@@ -25,8 +24,7 @@ const   Routing = ()=>{
               <Route path={'/login'} component={Login}></Route>
               <Route path={'/admin'} component={Admin}></Route>
           </Route>
-          </Router>
-      </Provider>
+          </Router>    
     );
   }
 export default Routing;

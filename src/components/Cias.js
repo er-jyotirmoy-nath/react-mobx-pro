@@ -1,21 +1,21 @@
 import React,{Component} from 'react';
-import {observer,Provider,inject} from  'mobx-react';
-import Listingstore from '../store/Listingstore';
-import { Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+import {connect} from 'react-redux';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import { Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+
 import Viewdetails from './viewDetails';
-inject('Listingstore');
-@observer
-export default class Cias extends Component {
+import {fetchciasAll,fetchCiasDetails} from '../actions/ciasactions';
+
+class Cias extends Component {
     constructor(props){
     	super(props);
     	this.state = {};
     }
     componentWillMount() {
-      Listingstore.getCiasFiles();
+      this.props.fetchciasAll();
     }
     render() {
-      let ciasFiles = Listingstore.cias;
+      let ciasFiles = (this.props.ciasfiles)?this.props.ciasfiles[0]:[];
       function bdataFormater(cell,row){
         return <Viewdetails id={cell} type='cias' />;
       }
@@ -49,3 +49,18 @@ export default class Cias extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+  return{
+    ciasfiles:state.ciasall.ciasfiles
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchciasAll(){
+      dispatch(
+        fetchciasAll()
+      )
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Cias);

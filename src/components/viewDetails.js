@@ -2,8 +2,11 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 //Local Imports
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl,Modal} from 'react-bootstrap';
-import {fetchtmv2Details,fetchDtcDetails,fetchCiasDetails,fetchCertDetails} from '../actions/actioncreators';
+import {fetchtmv2Details} from '../actions/actioncreators';
 import {fetchtmv3Details} from '../actions/tmv3actions';
+import {fetchCertDetails} from '../actions/pdcertactions';
+import {fetchCiasDetails} from '../actions/ciasactions';
+import {fetchDtcDetails} from '../actions/dtcactions';
 class viewDetails extends Component {
  constructor(props){
            super(props);
@@ -102,51 +105,47 @@ class viewDetails extends Component {
 
          break;
     case 'dtc':
-    listingDetail = this.props.dtcfile.map((item,i) => {
-      return (
-        <table className="table table-bordered" key={i}>
+    let dtcFile = this.props.dtcfile[0];
+    listingDetail =(dtcFile)?
+        <table className="table table-bordered" >
         <tbody>
-       <tr><td><label>Company</label></td><td>{item.company}</td></tr>
-       <tr><td><label>Description</label></td><td>{item.description}</td></tr>
-       <tr><td><label>Approved Mixing Valve</label></td><td>{item.mixingvalve}</td></tr>
-       <tr><td><label>Unique Id</label></td><td>{item.uniqueid}</td></tr>
-       <tr><td><label>Certificate Number</label></td><td>{item.certificatenumber}</td></tr>
-       <tr><td><label>Certification ID</label></td><td>{item.certificateid}</td></tr>
-       <tr><td><label>Expiry</label></td><td>{item.expiry}</td></tr>
+       <tr><td><label>Company</label></td><td>{dtcFile.MANUFACTURER}</td></tr>
+       <tr><td><label>Description</label></td><td>{dtcFile.DESCRIPTION_PRODCERT}</td></tr>
+       <tr><td><label>Approved Mixing Valve</label></td><td>{dtcFile.APPROVED_MIXING_VALVE}</td></tr>
+       <tr><td><label>Unique Id</label></td><td>{dtcFile.uniqueid}</td></tr>
+       <tr><td><label>Certificate Number</label></td><td>{dtcFile.certificatenumber}</td></tr>
+       <tr><td><label>Certification ID</label></td><td>{dtcFile.certificateid}</td></tr>
+       <tr><td><label>Expiry</label></td><td>{dtcFile.expiry}</td></tr>
        </tbody>
-        </table>
-      );
-    });
+     </table>:"";
+
       break;
     case 'cias':
-    listingDetail = this.props.ciasfile.map((item,i) => {
-      return (
-        <table className="table table-bordered" key={i}>
+    let ciasfilesall = (this.props.ciasfile[0]);
+    listingDetail =
+      (ciasfilesall)? <table className="table table-bordered" >
         <tbody>
-       <tr><td><label>Company</label></td><td>{item.company}</td></tr>
-       <tr><td><label>Description</label></td><td>{item.description}</td></tr>
-       <tr><td><label>Sizes</label></td><td>{item.sizes}</td></tr>
-       <tr><td><label>Certification Number</label></td><td>{item.certificatenumber}</td></tr>
-       <tr><td><label>Certification ID</label></td><td>{item.certficateid}</td></tr>
+       <tr><td><label>Company</label></td><td>{ciasfilesall.MANUFACTURER}</td></tr>
+       <tr><td><label>Description</label></td><td>{ciasfilesall.DESCRIPTION_PRODCERT}</td></tr>
+       <tr><td><label>Sizes</label></td><td>{ciasfilesall.SIZES_CIAS}</td></tr>
+       <tr><td><label>Certification Number</label></td><td>{ciasfilesall.CERTIFICATE_NUMBER}</td></tr>
+       <tr><td><label>Certification ID</label></td><td>{ciasfilesall.CERT_ID}</td></tr>
        </tbody>
-        </table>
-      );
-    });
+     </table>:"";
+
       break;
     case 'pdcert':
-      listingDetail = this.props.pdcertfile.map((item,i) => {
-        return (
-          <table className="table table-bordered" key={i}>
+      let pdcertFiles = this.props.pdcertfile[0];
+      listingDetail =
+          (pdcertFiles)?<table className="table table-bordered" >
           <tbody>
-         <tr><td><label>Product Standard</label></td><td>{item.productstandard}</td></tr>
-         <tr><td><label>Description</label></td><td>{item.description}</td></tr>
-         <tr><td><label>Certificate Number</label></td><td>{item.certificatenumber}</td></tr>
-         <tr><td><label>Certificate ID</label></td><td>{item.certificateid}</td></tr>
-         <tr><td><label>Expiry</label></td><td>{item.expiry}</td></tr>
+         <tr><td><label>Product Standard</label></td><td>{pdcertFiles.PERFORMANCE_STANDARD}</td></tr>
+         <tr><td><label>Description</label></td><td>{pdcertFiles.DESCRIPTION_PRODCERT}</td></tr>
+         <tr><td><label>Certificate Number</label></td><td>{pdcertFiles.CERTIFICATE_NUMBER}</td></tr>
+         <tr><td><label>Certificate ID</label></td><td>{pdcertFiles.CERT_ID}</td></tr>
+         <tr><td><label>Expiry</label></td><td>{pdcertFiles.EXPIRY_DATE}</td></tr>
          </tbody>
-          </table>
-        );
-      });
+       </table>:"";
       break;
      default:
 
@@ -181,8 +180,8 @@ function mapStateToProps(state) {
   return{
     tmv2file:state.tmv2all.tmv2file,
     tmv3file:state.tmv3all.tmv3file,
-    dtcfile:state.ciasall.ciasfile,
-    ciasfile:state.dtcall.dtcfile,
+    dtcfile:state.dtcall.dtcfile,
+    ciasfile:state.ciasall.ciasfile,
     pdcertfile:state.pdcertall.pdcertfile
   }
 }
@@ -213,6 +212,7 @@ function mapDispatchToProps(dispatch) {
         fetchCertDetails(id)
       )
     },
+
 
   }
 }

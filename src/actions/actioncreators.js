@@ -23,16 +23,3 @@ export const fetchtmv2Details = (id)=>(dispatch,getState)=>{
         });
       }).catch((err) => {console.error(err);});
 }
-
-
-
-
-export const fetchDtcDetails = (id)=>(dispatch,getState)=>{
-
-}
-export const fetchCiasDetails = (id)=>(dispatch,getState)=>{
-
-}
-export const fetchCertDetails = (id)=>(dispatch,getState)=>{
-
-}

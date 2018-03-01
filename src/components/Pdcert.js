@@ -1,22 +1,21 @@
 import React,{Component} from 'react';
-import {observer,Provider,inject} from  'mobx-react';
-import Listingstore from '../store/Listingstore';
+import {connect} from 'react-redux';
+import {fetchCertAll,fetchCertDetails} from '../actions/pdcertactions';
 import { Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import Viewdetails from './viewDetails';
 
-inject('Listingstore');
-@observer
-export default class Pdcert extends Component {
+
+class Pdcert extends Component {
   constructor(props){
     super(props);
     this.state = {};
   }
   componentWillMount() {
-    Listingstore.getPdcertFiles();
+    this.props.fetchCertAll();
   }
   render() {
-    let pdcertFiles = Listingstore.pdcert;
+    let pdcertFiles = (this.props.pdcertall)?this.props.pdcertall[0]:[];
     function bdataFormater(cell,row){
       return <Viewdetails id={cell} type='pdcert' />;
     }
@@ -51,3 +50,20 @@ export default class Pdcert extends Component {
       );
   }
 }
+
+function mapStateToProps(state,props) {
+  return{
+    pdcertall:state.pdcertall.pdcertall
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchCertAll(){
+      dispatch(
+        fetchCertAll()
+      )
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pdcert)
