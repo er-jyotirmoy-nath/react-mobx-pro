@@ -4,7 +4,7 @@ import {Provider} from  'mobx-react';
 import Listingstore from './store/Listingstore';
 import App from './App';
 import Home from './components/Home';
-import Tmv2 from './components/Tmv2';
+import News from './components/News';
 import Tmv3 from './components/Tmv3';
 import Pdcert from './components/Pdcert';
 import Cias from './components/Cias';
@@ -16,7 +16,7 @@ const   Routing = ()=>{
           <Router history={hashHistory}>
           <Route path={'/'} component={App}>
               <IndexRoute component={Home} />
-              <Route path={'/tmv2'} component={Tmv2}></Route>
+              <Route path={'/news'} component={News}></Route>
               <Route path={'/tmv3'} component={Tmv3}></Route>
               <Route path={'/pdcert'} component={Pdcert}></Route>
               <Route path={'/cias'} component={Cias}></Route>
@@ -24,7 +24,7 @@ const   Routing = ()=>{
               <Route path={'/login'} component={Login}></Route>
               <Route path={'/admin'} component={Admin}></Route>
           </Route>
-          </Router>    
+          </Router>
     );
   }
 export default Routing;

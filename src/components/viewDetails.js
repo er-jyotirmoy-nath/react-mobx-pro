@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 //Local Imports
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl,Modal} from 'react-bootstrap';
-import {fetchtmv2Details} from '../actions/actioncreators';
+import {fetchNewsImage} from '../actions/actioncreators';
 import {fetchtmv3Details} from '../actions/tmv3actions';
 import {fetchCertDetails} from '../actions/pdcertactions';
 import {fetchCiasDetails} from '../actions/ciasactions';
@@ -189,7 +189,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getTmv2Details(id){
       dispatch(
-        fetchtmv2Details(id)
+        fetchNewsImage(id)
       )
     },
     getTmv3Details(id){

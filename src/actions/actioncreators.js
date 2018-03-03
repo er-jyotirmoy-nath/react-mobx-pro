@@ -1,25 +1,52 @@
 import axios from 'axios';
-
+import C from './constants';
+const baseUrl = "http://localhost:3000/api";
 //Thunk is Higher order Function
-export const fetchtmv2All = ()=> (dispatch,getState)=>{
-  let params = new URLSearchParams();
-  params.append('filter','yes');
-  axios.post('https://wrcnsf.com/listings/php/tmv2_app.php',params)
+export const fetchAllNews = ()=> (dispatch,getState)=>{
+
+  axios.get(baseUrl+'/news_tables')
   .then((value) => {
         dispatch({
-          type:'FETCH_TMV2_ALL',
+          type:C.FETCH_ALL_NEWS,
           payload:value.data
         })
       }).catch((err) => {
         console.log(err);
       });
 }
-export const fetchtmv2Details = (id)=>(dispatch,getState)=>{
-  axios.get('https://wrcnsf.com/listings/php/tmv2Details.php?BUILD_APP_ID='+id)
+export const fetchNewsImage = (id)=>(dispatch,getState)=>{
+  axios.get(baseUrl+'/news_tables')
       .then((value) => {
         dispatch({
           type:"FETCH_TMV2_DETAIL",
           payload:value.data
         });
       }).catch((err) => {console.error(err);});
+}
+
+export const saveNews = (send_data) => (dispatch,getState)=>{
+  let params = {
+  "title": send_data.title,
+  "content": send_data.content,
+  "image_url": send_data.image_url,
+  "visible": send_data.visible,
+  "date_news": send_data.date_news
+  };
+  axios.post(baseUrl+'/news_tables',params)
+  .then((value) => {
+    dispatch(fetchAllNews());
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+}
+
+export const deleteNews = (id)=>(dispatch,getState)=>{
+  axios.delete(baseUrl+'/news_tables/'+id)
+  .then((value) => {
+    dispatch(fetchAllNews());
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 }

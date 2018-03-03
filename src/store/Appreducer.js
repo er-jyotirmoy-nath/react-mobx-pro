@@ -6,9 +6,9 @@ import {ciasfiles,ciasfile} from './ciasReducer';
 import {pdcertall,pdcertfile} from './pdcertreducer';
 import {dtcfiles,dtcfile} from './dtcreducer';
 
-export const tmv2 = (state=[],action)=>{
+export const news = (state=[],action)=>{
   switch (action.type) {
-    case C.FETCH_TMV2_ALL:
+    case C.FETCH_ALL_NEWS:
       return [
         action.payload
       ];
@@ -18,8 +18,8 @@ export const tmv2 = (state=[],action)=>{
   }
 }
 
-export const tmv2file = (state={},action)=>{
-  if (action.type==C.FETCH_TMV2_DETAIL) {
+export const newsimage = (state='',action)=>{
+  if (action.type==C.FETCH_NEWS_IMAGE) {
     return action.payload;
   }
   else {
@@ -60,9 +60,9 @@ export const savestatus = (state='',action)=>{
 }
 
 export default combineReducers({
-  tmv2all:combineReducers({
-    tmv2,
-    tmv2file
+  newsall:combineReducers({
+    news,
+    newsimage
   }),
   tmv3all:combineReducers({
     tmv3,

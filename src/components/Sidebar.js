@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
                      </a>
                  </li>
                  <li>
-                     <a href="#/tmv2">NSF TMV2</a>
+                     <a href="#/news">News & Alerts</a>
                  </li>
                  <li>
                      <a href="#/tmv3">NSF TMV3</a>
