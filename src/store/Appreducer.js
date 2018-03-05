@@ -1,7 +1,6 @@
 import C from '../actions/constants';
 import {combineReducers} from 'redux';
-
-import {tmv3,tmv3file,tmv3Filter} from './tmv3Reducer';
+import {banners} from './bannerReducer';
 import {ciasfiles,ciasfile} from './ciasReducer';
 import {pdcertall,pdcertfile} from './pdcertreducer';
 import {dtcfiles,dtcfile} from './dtcreducer';
@@ -18,14 +17,7 @@ export const news = (state=[],action)=>{
   }
 }
 
-export const newsimage = (state='',action)=>{
-  if (action.type==C.FETCH_NEWS_IMAGE) {
-    return action.payload;
-  }
-  else {
-    return state;
-  }
-}
+
 
 
 
@@ -61,13 +53,10 @@ export const savestatus = (state='',action)=>{
 
 export default combineReducers({
   newsall:combineReducers({
-    news,
-    newsimage
+    news
   }),
-  tmv3all:combineReducers({
-    tmv3,
-    tmv3file,
-    tmv3Filter
+  bannerall:combineReducers({
+    banners
   }),
   ciasall:combineReducers({
     ciasfiles,

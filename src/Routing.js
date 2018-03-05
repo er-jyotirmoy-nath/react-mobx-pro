@@ -5,24 +5,22 @@ import Listingstore from './store/Listingstore';
 import App from './App';
 import Home from './components/Home';
 import News from './components/News';
-import Tmv3 from './components/Tmv3';
+import Banners from './components/Banners';
 import Pdcert from './components/Pdcert';
 import Cias from './components/Cias';
 import Dtc from './components/Dtc';
 import Login from './components/Login';
-import Admin from './components/Admin';
 const   Routing = ()=>{
     return (
           <Router history={hashHistory}>
           <Route path={'/'} component={App}>
               <IndexRoute component={Home} />
               <Route path={'/news'} component={News}></Route>
-              <Route path={'/tmv3'} component={Tmv3}></Route>
+              <Route path={'/banners'} component={Banners}></Route>
               <Route path={'/pdcert'} component={Pdcert}></Route>
               <Route path={'/cias'} component={Cias}></Route>
               <Route path={'/dtc'} component={Dtc}></Route>
-              <Route path={'/login'} component={Login}></Route>
-              <Route path={'/admin'} component={Admin}></Route>
+              <Route path={'/login'} component={Login}></Route>              
           </Route>
           </Router>
     );

@@ -4,9 +4,9 @@ import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButt
 import axios from 'axios';
 import moment from 'moment';
 import {connect} from 'react-redux';
-import {saveNews} from '../../actions/actioncreators';
+import {saveBanner} from '../../actions/bannersaction';
 
-class Newsadmin extends Component {
+class Banneradmin extends Component {
     constructor(props){
     	super(props);
       this.state = { showModal: false, listingDetail:'',imageUrl:'',uploadStat:''};
@@ -20,17 +20,14 @@ class Newsadmin extends Component {
     open() {
       this.setState({ showModal: true ,imageUrl:'',uploadStat:''});
     }
-    saveNews(e){
+    saveBanner(e){
       e.preventDefault();
       let send_data={
         'title':this.refs.title.value,
-        'content':this.refs.content.value,
         'image_url':this.state.imageUrl,
-        'visible':0,
-        'date_news':moment(Date.now()).format('YYYY-MM-DD')
-
+        'visible':0
       };
-      this.props.saveNews(send_data);
+      this.props.saveBanner(send_data);
     }
 
     uploadImage(e){
@@ -40,11 +37,11 @@ class Newsadmin extends Component {
         const form = new FormData();
         form.append('file',e.target.files[0]);
         //http://localhost:3000/api/imageUploads/firstfile/upload
-        axios.post('http://localhost:3000/api/tecoFileUploads/newscontent/upload',form)
+        axios.post('http://localhost:3000/api/tecoFileUploads/banner/upload',form)
           .then((value) => {
             console.log(value.data);
 
-            self.setState({'uploadStat':'Done',imageUrl:'http://localhost:3000/api/tecoFileUploads/newscontent/download/'+value.data.result.files.file[0].name});
+            self.setState({'uploadStat':'Done',imageUrl:'http://localhost:3000/api/tecoFileUploads/banner/download/'+value.data.result.files.file[0].name});
           })
           .catch((err) => {
             console.error(err);
@@ -57,13 +54,13 @@ class Newsadmin extends Component {
             <div className="class-name">
               <SplitButton
                bsStyle='success'
-               title='Manage News'
+               title='Manage Banners'
               >
-             <MenuItem eventKey="1" onClick={this.open.bind(this)}>Add News & Alerts</MenuItem>
+             <MenuItem eventKey="1" onClick={this.open.bind(this)}>Add Banners</MenuItem>
             </SplitButton>
             <Modal show={this.state.showModal} onHide={this.close.bind(this)} bsSize="large">
               <Modal.Header closeButton>
-                <Modal.Title>Details</Modal.Title>
+                <Modal.Title>Add Banner</Modal.Title>
               </Modal.Header>
               <Modal.Body style={{'width':'900px'}}>
               <div>
@@ -74,14 +71,6 @@ class Newsadmin extends Component {
                                 <td colSpan="2"><b>Title</b></td>
                                 <td colSpan="2"><input ref="title" type="text" className="form-control"  size="30" /></td>
                             </tr>
-                            <tr>
-                                <td colSpan="4"><b>New Content</b>
-                                <br/>
-                                <textarea ref="content" cols="40" rows="10" className="form-control"></textarea>
-                            </td>
-
-                            </tr>
-
                             <tr>
                               <td>Image</td><td ><input type="file" id="img_file" ref='img_file' onChange={this.uploadImage.bind(this)} />
                               <br/>{this.state.uploadStat}
@@ -94,7 +83,7 @@ class Newsadmin extends Component {
                             </tr>
                         </tbody>
                     </table>
-                    <input type="submit" onClick={this.saveNews.bind(this)} className="btn btn-primary"  value="Add News" />
+                    <input type="submit" onClick={this.saveBanner.bind(this)} className="btn btn-primary"  value="Add News" />
                 </form>
               </div>
                 </Modal.Body>
@@ -115,11 +104,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveNews(send_data){
+    saveBanner(send_data){
       dispatch(
-        saveNews(send_data)
+        saveBanner(send_data)
       )
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Newsadmin)
+export default connect(mapStateToProps, mapDispatchToProps)(Banneradmin)

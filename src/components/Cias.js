@@ -25,8 +25,8 @@ class Cias extends Component {
                    <div className="col-md-12">
                     <h3> <span className="glyphicon glyphicon-user"></span> NSF CIAS  </h3>
                          <hr/>
-                         <div className="panel panel-default" style={{"borderColor": "#2196f3"}}>
-                             <div className="panel-heading2" style={{"backgroundColor": "#2196f3 !important","borderColor": "#2196f3"}}>
+                         <div className="panel panel-default" style={{"borderColor": "#3f51b5"}}>
+                             <div className="panel-heading2" style={{"backgroundColor": "#3f51b5 !important","borderColor": "#3f51b5"}}>
                                  Check NSF CIAS Approvals
                              </div>
                              <div className="panel-body" style={{"minHeight":"170px"}}>

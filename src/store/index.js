@@ -9,13 +9,13 @@ const listingConsoleMessages =  store => next => action => {
       Dispatched ${action.type}
       Original State
       ==============
-      ${JSON.stringify(store.getState().tmv3all.tmv3Filter)}
+
     `);
   let result = next(action);
   console.log(`
     New state
     =========
-    ${JSON.stringify(store.getState().tmv3all.tmv3Filter)}
+    
     `);
 
   return result;

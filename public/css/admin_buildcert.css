@@ -8,7 +8,7 @@ All rights reserved
 */
 
 .sidebar-nav li.active a {
-                color: #2196f3 !important;
+                color: #3f51b5 !important;
                 background-color: #fff !important;
                 font-weight: bold;
             } 
@@ -18,14 +18,14 @@ All rights reserved
                 color: #ffffff !important;
             } 
             .btn:hover {
-                border: 1px solid #2196f3 !important;
+                border: 1px solid #3f51b5 !important;
                 background-color: #fff !important;
-                color: #2196f3 !important;
+                color: #3f51b5 !important;
             }
             .btn {
                 margin: 0px 0 !important;
-                border: 1px solid #2196f3 !important;
-                background-color: #2196f3 !important;
+                border: 1px solid #3f51b5 !important;
+                background-color: #3f51b5 !important;
                 color: #fff !important;
             }
             body{
@@ -35,8 +35,8 @@ All rights reserved
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #2196f3;
-    border-color: #2196f3;
+    background-color: #3f51b5;
+    border-color: #3f51b5;
 }
 .checkbox label:after, 
 .radio label:after {
@@ -97,7 +97,7 @@ All rights reserved
     opacity: .5;
 }
  .panel {
-      border: 1px solid #2196f3; 
+      border: 1px solid #3f51b5; 
       border-radius:0 !important;
       transition: box-shadow 0.5s;
   }
@@ -105,13 +105,13 @@ All rights reserved
       box-shadow: 5px 0px 40px rgba(0,0,0, .2);
   }
   .panel-footer .btn:hover {
-      border: 1px solid #2196f3;
+      border: 1px solid #3f51b5;
       background-color: #fff !important;
-      color: #2196f3;
+      color: #3f51b5;
   }
   .panel-heading {
       color: #fff !important;
-      background-color: #2196f3 !important;
+      background-color: #3f51b5 !important;
       padding: 5px;
       border-bottom: 1px solid transparent;
       border-top-left-radius: 0px;
@@ -121,7 +121,7 @@ All rights reserved
   }
     .panel-heading1 {
       color: #fff !important;
-      background-color: #2196f3 !important;
+      background-color: #3f51b5 !important;
       padding: 5px;
       border-bottom: 1px solid transparent;
       border-top-left-radius: 0px;
@@ -131,7 +131,7 @@ All rights reserved
   }
    .panel-heading2 {
       color: #fff !important;
-      background-color: #2196f3 !important;
+      background-color: #3f51b5 !important;
       padding: 5px;
       border-bottom: 1px solid transparent;
       border-top-left-radius: 0px;
@@ -151,12 +151,12 @@ All rights reserved
   }
   .panel-footer .btn {
       margin: 15px 0;
-      background-color: #2196f3;
+      background-color: #3f51b5;
       color: #fff;
   }
   .navbar {
       margin-bottom: 0;
-      background-color: #2196f3;
+      background-color: #3f51b5;
       z-index: 9999;
       border: 0;
       font-size: 12px !important;
@@ -169,7 +169,7 @@ All rights reserved
       color: #fff !important;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #2196f3 !important;
+      color: #3f51b5 !important;
       background-color: #fff !important;
   }
   .navbar-default .navbar-toggle {
@@ -179,7 +179,7 @@ All rights reserved
   footer .glyphicon {
       font-size: 20px;
       margin-bottom: 20px;
-      color: #2196f3;
+      color: #3f51b5;
   }
   .slideanim {visibility:hidden;}
   .slide {
@@ -278,14 +278,14 @@ All rights reserved
     opacity: 1;
 }
 .btn:hover {
-      border: 1px solid #2196f3 !important;
+      border: 1px solid #3f51b5 !important;
       background-color: #fff !important;
-      color: #2196f3 !important;
+      color: #3f51b5 !important;
   }
   .btn {
       margin: 15px 0 !important;
-      border: 1px solid #2196f3 !important;
-      background-color: #2196f3 !important;
+      border: 1px solid #3f51b5 !important;
+      background-color: #3f51b5 !important;
       color: #fff !important;
   }
   .sidebar-nav li a {
