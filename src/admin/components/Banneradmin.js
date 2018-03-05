@@ -36,12 +36,12 @@ class Banneradmin extends Component {
         console.log(e.target.files[0]);
         const form = new FormData();
         form.append('file',e.target.files[0]);
-        //http://localhost:3000/api/imageUploads/firstfile/upload
-        axios.post('http://localhost:3000/api/tecoFileUploads/banner/upload',form)
+        //https://murmuring-sea-84221.herokuapp.com/api/imageUploads/firstfile/upload
+        axios.post('https://murmuring-sea-84221.herokuapp.com/api/tecoFileUploads/banner/upload',form)
           .then((value) => {
             console.log(value.data);
 
-            self.setState({'uploadStat':'Done',imageUrl:'http://localhost:3000/api/tecoFileUploads/banner/download/'+value.data.result.files.file[0].name});
+            self.setState({'uploadStat':'Done',imageUrl:'https://murmuring-sea-84221.herokuapp.com/api/tecoFileUploads/banner/download/'+value.data.result.files.file[0].name});
           })
           .catch((err) => {
             console.error(err);
