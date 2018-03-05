@@ -1,7 +1,7 @@
 import {Router, Route,IndexRoute, hashHistory} from 'react-router';
 import React from 'react';
 import {Provider} from  'mobx-react';
-import Listingstore from './store/Listingstore';
+
 import App from './App';
 import Home from './components/Home';
 import News from './components/News';
@@ -20,7 +20,7 @@ const   Routing = ()=>{
               <Route path={'/pdcert'} component={Pdcert}></Route>
               <Route path={'/cias'} component={Cias}></Route>
               <Route path={'/dtc'} component={Dtc}></Route>
-              <Route path={'/login'} component={Login}></Route>              
+              <Route path={'/login'} component={Login}></Route>
           </Route>
           </Router>
     );
