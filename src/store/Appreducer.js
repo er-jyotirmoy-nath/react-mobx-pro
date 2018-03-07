@@ -2,7 +2,7 @@ import C from '../actions/constants';
 import {combineReducers} from 'redux';
 import {banners} from './bannerReducer';
 import {ciasfiles,ciasfile} from './ciasReducer';
-import {pdcertall,pdcertfile} from './pdcertreducer';
+import {blogsall,blog} from './blogsReducer';
 import {dtcfiles,dtcfile} from './dtcreducer';
 
 export const news = (state=[],action)=>{
@@ -66,9 +66,9 @@ export default combineReducers({
     dtcfiles,
     dtcfile
   }),
-  pdcertall:combineReducers({
-    pdcertall,
-    pdcertfile
+  blogsdetails:combineReducers({
+    blogsall,
+    blog
   }),
   error,
   savestatus,

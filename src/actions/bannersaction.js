@@ -1,6 +1,6 @@
 import axios from 'axios';
 import C from './constants';
-const baseUrl = "https://murmuring-sea-84221.herokuapp.com/api";
+const baseUrl = "https://treco-admin-backend-service.herokuapp.com/api";
 //Thunk is Higher order Function
 export const fetchAllBanners = ()=> (dispatch,getState)=>{
 

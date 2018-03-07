@@ -1,7 +1,7 @@
 import C from '../actions/constants';
 
-export const pdcertall = (state=[],action)=>{
-  if (action.type == C.FETCH_PDCERT_ALL) {
+export const blogsall = (state=[],action)=>{
+  if (action.type == C.FETCH_BLOGS_ALL) {
     return [
       ...state,
       action.payload
@@ -14,8 +14,8 @@ export const pdcertall = (state=[],action)=>{
 
 
 
-export const pdcertfile = (state={},action)=>{
-  if (action.type==C.FETCH_PDCERT_DETAIL) {
+export const blog = (state={},action)=>{
+  if (action.type==C.FETCH_BLOG) {
     return action.payload;
   }
   else {

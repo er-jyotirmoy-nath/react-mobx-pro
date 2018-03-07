@@ -6,7 +6,7 @@ import App from './App';
 import Home from './components/Home';
 import News from './components/News';
 import Banners from './components/Banners';
-import Pdcert from './components/Pdcert';
+import Blogs from './components/Blogs';
 import Cias from './components/Cias';
 import Dtc from './components/Dtc';
 import Login from './components/Login';
@@ -17,7 +17,7 @@ const   Routing = ()=>{
               <IndexRoute component={Home} />
               <Route path={'/news'} component={News}></Route>
               <Route path={'/banners'} component={Banners}></Route>
-              <Route path={'/pdcert'} component={Pdcert}></Route>
+              <Route path={'/blogs'} component={Blogs}></Route>
               <Route path={'/cias'} component={Cias}></Route>
               <Route path={'/dtc'} component={Dtc}></Route>
               <Route path={'/login'} component={Login}></Route>

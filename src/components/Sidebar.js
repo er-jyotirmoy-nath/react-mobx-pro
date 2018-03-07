@@ -18,7 +18,7 @@ export default class Sidebar extends Component {
                      <a href="#/banners">Banners</a>
                  </li>
                  <li>
-                     <a href="#/pdcert">UKAS product certification</a>
+                     <a href="#/blogs">Blogs</a>
                  </li>
                  <li>
                      <a href="#/cias">NSF CIAS</a>
