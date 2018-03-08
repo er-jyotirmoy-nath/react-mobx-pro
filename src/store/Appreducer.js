@@ -39,12 +39,14 @@ export const error = (state=[],action)=>{
   }
 }
 
-export const savestatus = (state='',action)=>{
+export const saveStatus = (state='',action)=>{
   switch (action.type) {
-    case C.ADD_SAVE_STATUS:
+    case C.ADD_STATUS:
       return action.payload;
       break;
-
+    case C.CLEAR_STATUS:
+      return '';
+      break;
     default:
     return state;
 
@@ -71,5 +73,5 @@ export default combineReducers({
     blog
   }),
   error,
-  savestatus,
+  saveStatus,
 })

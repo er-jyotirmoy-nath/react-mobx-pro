@@ -25,3 +25,14 @@ export const deleteBlog = (id) => (dispatch,getState)=>{
     dispatch(addErrors(err));
   })
 };
+
+export const saveblogs = (send_data) => (dispatch,getState)=>{
+  
+  axios.post(baseUrl,send_data)
+  .then((value)=>{
+    dispatch(fetchAllBlogs())
+  })
+  .catch((err)=>{
+    dispatch(addErrors(err));
+  })
+};

@@ -39,7 +39,8 @@ class viewDetails extends Component {
        case 'banner':
 
        listingDetail =
-           <div className="row">
+           <div className="row container">
+            <label>Title: </label>{this.props.title}
              <div className="col-sm-12"><img src={this.props.imgsrc} style={{'width':'50%'}} /></div>
            </div>;
          break;
@@ -73,8 +74,10 @@ class viewDetails extends Component {
  }
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state,props) {
   return{
+    title:props.title,
+    id:props.id
   }
 }
 function mapDispatchToProps(dispatch) {

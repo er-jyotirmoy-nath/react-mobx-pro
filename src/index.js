@@ -4,7 +4,6 @@ import Routing from './Routing';
 //import {observer,Provider,inject} from  'mobx-react';
 //applying redux
 import storeFactory from './store'
-import {fetchtmv2All,fetchtmv2Details} from './actions/actioncreators';
 import {Provider} from 'react-redux';
 let store = storeFactory();
 

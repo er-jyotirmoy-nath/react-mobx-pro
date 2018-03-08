@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {fetchAllBlogs,deleteBlog} from '../actions/blogsactions';
-import Banneradmin from '../admin/components/Banneradmin';
+import Blogsadmin from '../admin/components/Blogsadmin';
 import Viewdetails from './viewDetails';
 class Blogs extends Component {
     componentDidMount() {
@@ -40,7 +40,7 @@ class Blogs extends Component {
                              </div>
                              <div className="panel-body" style={{"minHeight":"170px"}}>
 
-                               <Banneradmin />
+                               <Blogsadmin />
                                <BootstrapTable data={blogsall} striped={true} hover={true}    pagination={true} search={true} exportCSV={true}   bodyStyle={{'zIndex': '-1 !important','overflow':'visible'}}>
                                                 <TableHeaderColumn dataField="id"  isKey={true}  dataSort={true}>Id</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="title"  dataSort={true}>Title</TableHeaderColumn>

@@ -3,7 +3,6 @@ import C from '../actions/constants';
 export const blogsall = (state=[],action)=>{
   if (action.type == C.FETCH_BLOGS_ALL) {
     return [
-      ...state,
       action.payload
     ];
   }

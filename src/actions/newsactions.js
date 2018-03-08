@@ -3,14 +3,23 @@ import C from './constants';
 const baseUrl = "https://treco-admin-backend-service.herokuapp.com/api";
 //Thunk is Higher order Function
 export const fetchAllNews = ()=> (dispatch,getState)=>{
-
+  dispatch({
+    type:C.ADD_STATUS,
+    payload:'...Loading....'
+  });
   axios.get(baseUrl+'/news_tables')
   .then((value) => {
         dispatch({
           type:C.FETCH_ALL_NEWS,
           payload:value.data
         })
-      }).catch((err) => {
+      })
+  .then((value)=>{
+    dispatch({
+      type:C.CLEAR_STATUS
+    })
+  })
+  .catch((err) => {
         console.log(err);
       });
 }
@@ -25,6 +34,10 @@ export const fetchNewsImage = (id)=>(dispatch,getState)=>{
 }
 
 export const saveNews = (send_data) => (dispatch,getState)=>{
+   dispatch({
+    type:C.ADD_STATUS,
+    payload:'...Loading....'
+  });
   let params = {
   "title": send_data.title,
   "content": send_data.content,
@@ -35,6 +48,11 @@ export const saveNews = (send_data) => (dispatch,getState)=>{
   axios.post(baseUrl+'/news_tables',params)
   .then((value) => {
     dispatch(fetchAllNews());
+  })
+  .then((value)=>{
+    dispatch({
+      type:C.CLEAR_STATUS
+    })
   })
   .catch((err) => {
     console.error(err);

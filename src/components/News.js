@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {fetchAllNews,deleteNews} from '../actions/actioncreators';
+import {fetchAllNews,deleteNews} from '../actions/newsactions';
 import Newsadmin from '../admin/components/Newsadmin';
 import Viewdetails from './viewDetails';
 class News extends Component {
@@ -26,7 +26,7 @@ class News extends Component {
 
                  <div className="row">
                      <div className="col-lg-12">
-                         <h3> <span className="glyphicon glyphicon-user"></span> Treco News  </h3>
+                         <h3> <span className="glyphicon glyphicon-user"></span> Treco News  {this.props.saveStatus}</h3>
                          <hr/>
                      </div>
                  </div>
@@ -62,7 +62,8 @@ class News extends Component {
 
 function mapStateToProps(state) {
   return{
-    news:state.newsall.news
+    news:state.newsall.news,
+    saveStatus:state.saveStatus
   }
 }
 function mapDispatchToProps(dispatch) {

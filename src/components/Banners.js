@@ -10,11 +10,27 @@ class Banners extends Component {
       this.props.fetchAllBanners();
     }
     render() {
-
+      const cellEditProp = {
+        mode: 'click',
+        blurToSave: true,
+        afterSaveCell: onAfterSaveCell  // a hook for after saving cell
+      };
+      function onAfterSaveCell(row, cellName, cellValue) {
+            let send_data = {
+              id:row.id,
+              title:row.title,
+              image_url:row.image_url,
+              visible:row.visible=='Y'?'1':'0'
+            };
+            console.log(send_data);
+      }
       let newsdetails = this.props.banners[0];let self = this;
       function imageView(cell, row){
-        return <Viewdetails imgsrc={cell}  type='banner' />
+        return <Viewdetails imgsrc={cell} title={row.title} id={row.id}  type='banner' />
         //return <span><img src={cell} style={{'width':'30%'}} /></span>;
+      }
+      function visibleFormat(cell,row){
+        return <span>{cell=='1'?'Y':'N'}</span>
       }
       function deleteButton(cell, row){
         return <button className="btn btn-primary" onClick={(e)=>{
@@ -26,7 +42,7 @@ class Banners extends Component {
 
                  <div className="row">
                      <div className="col-lg-12">
-                         <h3> <span className="glyphicon glyphicon-user"></span> Treco Banners  </h3>
+                         <h3> <span className="glyphicon glyphicon-user"></span> Treco Banners {this.props.saveStatus} </h3>
                          <hr/>
                      </div>
                  </div>
@@ -40,11 +56,11 @@ class Banners extends Component {
                              <div className="panel-body" style={{"minHeight":"170px"}}>
 
                                <Banneradmin />
-                               <BootstrapTable data={newsdetails} striped={true} hover={true}    pagination={true} search={true} exportCSV={true}   bodyStyle={{'zIndex': '-1 !important','overflow':'visible'}}>
+                               <BootstrapTable data={newsdetails} cellEdit={ cellEditProp } striped={true} hover={true}    pagination={true} search={true} exportCSV={true}   bodyStyle={{'zIndex': '-1 !important','overflow':'visible'}}>
                                                 <TableHeaderColumn dataField="id"  isKey={true}  dataSort={true}>Id</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="title"  dataSort={true}>Title</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="visible"  dataSort={true} >Visible</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="image_url"   dataSort={true} dataFormat={imageView} >View Image</TableHeaderColumn>
+                                                <TableHeaderColumn dataField="visible"  dataSort={true} dataFormat={visibleFormat} editable={ { type: 'checkbox', options: { values: 'Y:N' } } } >Visible</TableHeaderColumn>
+                                                <TableHeaderColumn dataField="image_url"   dataSort={true} editable={ false } dataFormat={imageView} >View Image</TableHeaderColumn>
                                                 <TableHeaderColumn dataField="id"   dataSort={true} dataFormat={deleteButton} >Delete</TableHeaderColumn>
                               </BootstrapTable>
 
@@ -61,7 +77,8 @@ class Banners extends Component {
 
 function mapStateToProps(state) {
   return{
-    banners:state.bannerall.banners
+    banners:state.bannerall.banners,
+    saveStatus:state.saveStatus
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -80,3 +97,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
  export default connect(mapStateToProps,mapDispatchToProps)(Banners);
+
+ 

@@ -3,26 +3,30 @@ import C from './constants';
 const baseUrl = "https://treco-admin-backend-service.herokuapp.com/api";
 //Thunk is Higher order Function
 export const fetchAllBanners = ()=> (dispatch,getState)=>{
-
+  dispatch({
+    type:C.ADD_STATUS,
+    payload:'...Loading....'
+  });
   axios.get(baseUrl+'/banner_tables')
   .then((value) => {
         dispatch({
           type:C.FETCH_ALL_BANNERS,
           payload:value.data
         })
-      }).catch((err) => {
+  }).then((value)=>{
+    dispatch({
+      type:C.CLEAR_STATUS
+    })
+  })
+      .catch((err) => {
         console.log(err);
       });
 }
 
 
 export const saveBanner = (send_data) => (dispatch,getState)=>{
-  let params = {
-  "title": send_data.title,
-  "image_url": send_data.image_url,
-  "visible": send_data.visible
-  };
-  axios.post(baseUrl+'/banner_tables',params)
+
+  axios.post(baseUrl+'/banner_tables',send_data)
   .then((value) => {
     dispatch(fetchAllBanners());
   })
