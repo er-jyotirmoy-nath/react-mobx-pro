@@ -43,4 +43,14 @@ export const deleteBanner = (id)=>(dispatch,getState)=>{
   .catch((err) => {
     console.error(err);
   })
+};
+
+export const updateBanner = (send_data) => (dispatch,getState) =>{
+  axios.put(baseUrl+'/banner_tables/'+send_data.id,send_data)
+  .then((value)=>{
+    dispatch(fetchAllBanners());
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
 }

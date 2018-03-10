@@ -15,7 +15,7 @@ export const news = (state=[],action)=>{
     default:
     return state;
   }
-}
+};
 
 
 
@@ -46,7 +46,7 @@ export const saveStatus = (state='',action)=>{
       break;
     case C.CLEAR_STATUS:
       return '';
-      break;
+      break;  
     default:
     return state;
 

@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {ButtonGroup, Button, DropdownButton, MenuItem, Collapse, Well, SplitButton, Glyphicon, Table, Checkbox, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {fetchAllBanners,deleteBanner} from '../actions/bannersaction';
+import {fetchAllBanners,deleteBanner,updateBanner} from '../actions/bannersaction';
 import Banneradmin from '../admin/components/Banneradmin';
 import Viewdetails from './viewDetails';
 class Banners extends Component {
@@ -10,6 +10,7 @@ class Banners extends Component {
       this.props.fetchAllBanners();
     }
     render() {
+      let self = this;
       const cellEditProp = {
         mode: 'click',
         blurToSave: true,
@@ -22,9 +23,9 @@ class Banners extends Component {
               image_url:row.image_url,
               visible:row.visible=='Y'?'1':'0'
             };
-            console.log(send_data);
+            self.props.updateBanner(send_data);
       }
-      let newsdetails = this.props.banners[0];let self = this;
+      let newsdetails = this.props.banners[0];
       function imageView(cell, row){
         return <Viewdetails imgsrc={cell} title={row.title} id={row.id}  type='banner' />
         //return <span><img src={cell} style={{'width':'30%'}} /></span>;
@@ -93,6 +94,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         deleteBanner(id)
       )
+    },
+    updateBanner(send_data){
+      dispatch(updateBanner(send_data));
     }
   }
 }
